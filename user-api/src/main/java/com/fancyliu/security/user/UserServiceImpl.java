@@ -1,5 +1,6 @@
 package com.fancyliu.security.user;
 
+import com.lambdaworks.crypto.SCryptUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,8 @@ public class UserServiceImpl implements UserService {
     public UserDTO create(UserDTO userDTO) {
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
-//        user.setUsername(null);
+        user.setPassword(SCryptUtil.scrypt(user.getPassword(), 32768, 8, 1));
+
         userRepository.save(user);
         userDTO.setId(user.getId());
 

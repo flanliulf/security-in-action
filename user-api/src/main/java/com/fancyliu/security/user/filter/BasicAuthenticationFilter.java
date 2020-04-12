@@ -2,6 +2,7 @@ package com.fancyliu.security.user.filter;
 
 import com.fancyliu.security.user.User;
 import com.fancyliu.security.user.UserRepository;
+import com.lambdaworks.crypto.SCryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
             String password = tokens[1];
 
             User user = userRepository.findByUsername(username);
-            if (user != null && StringUtils.equals(password, user.getPassword())) {
+            if (user != null && SCryptUtil.check(password, user.getPassword())) {
                 request.setAttribute("user", user);
             }
         }
