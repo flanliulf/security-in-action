@@ -1,10 +1,11 @@
-package com.fancyliu.security.user.filter;
+package com.fancyliu.security.filter;
 
 import com.fancyliu.security.user.User;
 import com.fancyliu.security.user.UserRepository;
 import com.lambdaworks.crypto.SCryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Order(2)
 public class BasicAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -23,7 +25,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+        System.out.println(2);
         String authorization = request.getHeader("Authorization");
 
         if (StringUtils.isNotBlank(authorization)) {
