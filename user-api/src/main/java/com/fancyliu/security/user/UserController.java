@@ -10,34 +10,34 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
 
-    @PostMapping("")
-    public User create(@RequestBody User user) {
-        return user;
+    @PostMapping
+    public UserDTO create(@RequestBody UserDTO user) {
+        return userService.create(user);
     }
 
-    @PutMapping("")
-    public User update(@RequestBody User user) {
-        return user;
+    @PutMapping("/{id}")
+    public UserDTO update(@RequestBody UserDTO user) {
+        return userService.update(user);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-
+        userService.delete(id);
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable Long id) {
-        return new User();
+    public UserDTO get(@PathVariable Long id) {
+        return userService.get(id);
     }
 
 
     @GetMapping("/list")
     public List list(String name) {
 
-        List<User> list = userRepository.findByName(name);
+        List<UserDTO> list = userService.findByName(name);
 
         return list;
     }
