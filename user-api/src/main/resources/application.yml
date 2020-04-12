@@ -10,3 +10,11 @@ spring:
   jpa:
     generate-ddl: true
     show-sql: true
+
+server:
+  ssl:
+    # 生成证书 keytool -genkeypair -alias david -keyalg RSA -keystore /Users/flanliulf/keys/david.key
+    # 迁移证书 keytool -importkeystore -srckeystore /Users/flanliulf/keys/david.key -destkeystore /Users/flanliulf/keys/david.key -deststoretype pkcs12
+    key-store: classpath:david.key
+    key-store-password: 123456
+    key-password: 123456
