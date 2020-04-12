@@ -1,5 +1,6 @@
 package com.fancyliu.security.config;
 
+import com.fancyliu.security.filter.AclInterceptor;
 import com.fancyliu.security.filter.AuditLogInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +18,14 @@ public class SecurityConfiguration implements WebMvcConfigurer {
     @Autowired
     private AuditLogInterceptor auditLogInterceptor;
 
+    @Autowired
+    private AclInterceptor aclInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(auditLogInterceptor);
+        registry.addInterceptor(aclInterceptor);
     }
 
     @Bean

@@ -1,6 +1,7 @@
 package com.fancyliu.security.user;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +22,8 @@ public class User {
 
     private String password;
 
+    private String permissions;
+
     public UserDTO buildUserDTO() {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(id);
@@ -28,5 +31,17 @@ public class User {
         userDTO.setUsername(username);
         userDTO.setPassword(password);
         return userDTO;
+    }
+
+    public boolean hasPermission(String method) {
+
+        boolean result = false;
+        if (StringUtils.endsWithIgnoreCase("get", method)){
+            result = StringUtils.contains(permissions, "r");
+        } else {
+            result = StringUtils.contains(permissions, "w");
+        }
+
+        return result;
     }
 }
