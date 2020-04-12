@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO create(UserDTO userDTO) {
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
+//        user.setUsername(null);
         userRepository.save(user);
         userDTO.setId(user.getId());
 

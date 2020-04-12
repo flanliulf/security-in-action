@@ -2,10 +2,8 @@ package com.fancyliu.security.user;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
@@ -17,6 +15,8 @@ public class User {
 
     private String name;
 
+    @NotBlank(message = "用户名不能为 null")
+    @Column(unique = true)
     private String username;
 
     private String password;

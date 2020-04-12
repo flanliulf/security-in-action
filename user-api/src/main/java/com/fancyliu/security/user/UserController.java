@@ -1,6 +1,7 @@
 package com.fancyliu.security.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ public class UserController {
 
 
     @PostMapping
-    public UserDTO create(@RequestBody UserDTO user) {
+    public UserDTO create(@RequestBody @Validated UserDTO user) {
         return userService.create(user);
     }
 
