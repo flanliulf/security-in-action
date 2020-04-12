@@ -1,18 +1,16 @@
 package com.fancyliu.security.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private UserRepository userRepository;
 
 
     @PostMapping("")
@@ -39,9 +37,8 @@ public class UserController {
     @GetMapping("/list")
     public List list(String name) {
 
-        // 演示sql 注入,传入参数 ' or 1=1 or name ='
-        String sql ="SELECT id, name FROM user WHERE name = '" + name +"'";
-        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+        List<User> list = userRepository.findByName(name);
+
         return list;
     }
 }
