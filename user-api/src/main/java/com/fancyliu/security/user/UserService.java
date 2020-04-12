@@ -13,4 +13,6 @@ public interface UserService {
     UserDTO get(Long id);
 
     List<UserDTO> findByName(String name);
+
+    UserDTO findById(Long id);
 }

@@ -20,4 +20,13 @@ public class User {
     private String username;
 
     private String password;
+
+    public UserDTO buildUserDTO() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(id);
+        userDTO.setName(name);
+        userDTO.setUsername(username);
+        userDTO.setPassword(password);
+        return userDTO;
+    }
 }

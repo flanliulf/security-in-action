@@ -8,4 +8,6 @@ import java.util.List;
 public interface UserRepository extends JpaSpecificationExecutor<User>, CrudRepository<User, Long> {
 
     List<UserDTO> findByName(String name);
+
+    User findByUsername(String username);
 }

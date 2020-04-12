@@ -3,6 +3,7 @@ package com.fancyliu.security.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDTO get(@PathVariable Long id) {
+    public UserDTO get(@PathVariable Long id, HttpServletRequest request) {
+
+        User user = (User) request.getAttribute("user");
+
+        if (user == null || !id.equals(user.getId())) {
+            throw new RuntimeException("身份认证信息异常,获取用户信息失败");
+        }
+
         return userService.get(id);
     }
 

@@ -30,10 +30,14 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDTO get(Long id) {
-        return null;
+        return this.userRepository.findById(id).get().buildUserDTO();
     }
 
     public List<UserDTO> findByName(String name) {
         return null;
+    }
+
+    public UserDTO findById(Long id) {
+        return this.userRepository.findById(id).get().buildUserDTO();
     }
 }
