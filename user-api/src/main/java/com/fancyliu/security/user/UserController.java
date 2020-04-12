@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private JdbcTemplate jdbcTemplate;
 
 
     @PostMapping("")
@@ -39,10 +38,10 @@ public class UserController {
 
     @GetMapping("/list")
     public List list(String name) {
-        String sql ="SELECT id, name FROM user WHERE name = '" + name +"'";
-        userRepository.findByName(name);
 
-        List<User> list = userRepository.findByName(name);
+        // 演示sql 注入,传入参数 ' or 1=1 or name ='
+        String sql ="SELECT id, name FROM user WHERE name = '" + name +"'";
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
         return list;
     }
 }
